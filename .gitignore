@@ -14,3 +14,6 @@
 
 # Ignore all private keys
 *.pem
+
+# Ignore configuration files
+/config/s3.yml

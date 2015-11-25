@@ -49,5 +49,5 @@ end
 gem 'redis-rails'
 gem 'sidekiq'
 gem 'paperclip'
-gem 'aws-sdk'
+gem 'aws-sdk', '< 2.0'
 
