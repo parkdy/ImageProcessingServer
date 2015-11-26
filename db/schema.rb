@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151125193340) do
+ActiveRecord::Schema.define(version: 20151126002345) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "image_processing_requests", force: :cascade do |t|
+    t.string   "callback_url"
+    t.integer  "original_image_id"
+    t.integer  "processed_image_id"
+    t.boolean  "processed",          default: false, null: false
+    t.string   "command_string"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "image_processing_requests", ["original_image_id"], name: "index_image_processing_requests_on_original_image_id", using: :btree
+  add_index "image_processing_requests", ["processed_image_id"], name: "index_image_processing_requests_on_processed_image_id", using: :btree
 
   create_table "images", force: :cascade do |t|
     t.string   "image_file_name"
