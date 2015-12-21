@@ -50,5 +50,5 @@ gem 'redis-rails'
 gem 'sidekiq'
 gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
-gem 'rmagick'
+gem 'mini_magick'
 

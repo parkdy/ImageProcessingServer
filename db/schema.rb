@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 20151126002345) do
     t.integer  "original_image_id"
     t.integer  "processed_image_id"
     t.boolean  "processed",          default: false, null: false
-    t.string   "command_string"
+    t.string   "command_string",     default: ""
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end

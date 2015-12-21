@@ -1,26 +1,22 @@
-require 'RMagick'
-
 class ImageProcessingRequestWorker
   include Sidekiq::Worker
 
   def perform(image_processing_request_id)
-    # Fetch request from database
     request = ImageProcessingRequest.find(image_processing_request_id)
     return if request.processed?
 
-    # Download the original file from S3 as a temporary file
-    temp_original_file = open(request.original_image.image.url)
+    original_image = MiniMagick::Image.open(request.original_image.image.url)
+    processed_image_path = Rails.root.join('tmp', "processed_#{image_processing_request_id}_#{request.command_string.split.last}")
 
-    # Image Magick
-    img = Magick::Image.from_blob(temp_original_file.read).first
-    processed_img = img.negate # change based on command string
-    temp_processed_file = Tempfile.new(["processed_#{image_processing_request_id}_", ".#{processed_img.format.downcase}"])
-    processed_img.write(temp_processed_file.path)
+    MiniMagick::Tool::Convert.new do |convert|
+      convert << original_image.path
+      convert.merge!(request.command_string.split[0..-2])
+      convert << processed_image_path
+    end
 
-    processed_image = Image.new
-    processed_image.image = temp_processed_file
-    request.processed_image = processed_image
-    request.processed = true
-    request.save!
+    request.update_attributes!(
+      processed_image: Image.new(image: open(processed_image_path)),
+      processed: true
+    )
   end
 end

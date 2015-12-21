@@ -5,7 +5,7 @@ class CreateImageProcessingRequests < ActiveRecord::Migration
       t.references :original_image, index: true
       t.references :processed_image, index: true
       t.boolean :processed, default: false, null: false
-      t.string :command_string
+      t.string :command_string, default: ''
 
       t.timestamps null: false
     end
