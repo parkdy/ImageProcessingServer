@@ -51,4 +51,5 @@ gem 'sidekiq'
 gem 'paperclip'
 gem 'aws-sdk', '< 2.0'
 gem 'mini_magick'
-
+gem 'sinatra', require: false
+gem 'slim'
