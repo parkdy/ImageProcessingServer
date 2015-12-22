@@ -1,0 +1,30 @@
+<%= form_for(@image_processing_request, html: { multipart: true }) do |f| %>
+  <% if @image_processing_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@image_processing_request.errors.count, "error") %> prohibited this image_processing_request from being saved:</h2>
+
+      <ul>
+      <% @image_processing_request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :original_image %><br>
+    <%= f.file_field :original_image, accept: 'image/*', name: 'image_processing_request[original_image_attributes][image]' %>
+  </div>
+  </div>
+  <div class="field">
+    <%= f.label :command_string %><br>
+    <%= f.text_field :command_string %>
+  </div>
+  <div class="field">
+    <%= f.label :callback_url %><br>
+    <%= f.text_field :callback_url %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

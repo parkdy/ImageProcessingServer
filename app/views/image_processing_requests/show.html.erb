@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Original image:</strong>
+  <%= @image_processing_request.original_image_id %>
+</p>
+
+<p>
+  <strong>Processed image:</strong>
+  <%= @image_processing_request.processed_image_id %>
+</p>
+
+<p>
+  <strong>Processed:</strong>
+  <%= @image_processing_request.processed %>
+</p>
+
+<p>
+  <strong>Command string:</strong>
+  <%= @image_processing_request.command_string %>
+</p>
+
+<p>
+  <strong>Callback url:</strong>
+  <%= @image_processing_request.callback_url %>
+</p>
+
+<%= link_to 'Edit', edit_image_processing_request_path(@image_processing_request) %> |
+<%= link_to 'Back', image_processing_requests_path %>

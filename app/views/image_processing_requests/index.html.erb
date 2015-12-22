@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Image Processing Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Original image</th>
+      <th>Processed image</th>
+      <th>Processed</th>
+      <th>Command string</th>
+      <th>Callback url</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @image_processing_requests.each do |image_processing_request| %>
+      <tr>
+        <td><%= image_processing_request.original_image_id %></td>
+        <td><%= image_processing_request.processed_image_id %></td>
+        <td><%= image_processing_request.processed %></td>
+        <td><%= image_processing_request.command_string %></td>
+        <td><%= image_processing_request.callback_url %></td>
+        <td><%= link_to 'Show', image_processing_request %></td>
+        <td><%= link_to 'Edit', edit_image_processing_request_path(image_processing_request) %></td>
+        <td><%= link_to 'Destroy', image_processing_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Image processing request', new_image_processing_request_path %>

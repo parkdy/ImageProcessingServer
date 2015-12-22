@@ -1,0 +1,2 @@
+module ImageProcessingRequestsHelper
+end
