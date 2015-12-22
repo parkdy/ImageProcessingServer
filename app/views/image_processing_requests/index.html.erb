@@ -1,35 +1,44 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Image Processing Requests</h1>
-
-<table>
+<%- model_class = ImageProcessingRequest -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
   <thead>
     <tr>
-      <th>Original image</th>
-      <th>Processed image</th>
-      <th>Processed</th>
-      <th>Command string</th>
-      <th>Callback url</th>
-      <th colspan="3"></th>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:callback_url) %></th>
+      <th><%= model_class.human_attribute_name(:original_image_id) %></th>
+      <th><%= model_class.human_attribute_name(:processed_image_id) %></th>
+      <th><%= model_class.human_attribute_name(:processed) %></th>
+      <th><%= model_class.human_attribute_name(:command_string) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
-
   <tbody>
     <% @image_processing_requests.each do |image_processing_request| %>
       <tr>
+        <td><%= link_to image_processing_request.id, image_processing_request_path(image_processing_request) %></td>
+        <td><%= image_processing_request.callback_url %></td>
         <td><%= image_processing_request.original_image_id %></td>
         <td><%= image_processing_request.processed_image_id %></td>
         <td><%= image_processing_request.processed %></td>
         <td><%= image_processing_request.command_string %></td>
-        <td><%= image_processing_request.callback_url %></td>
-        <td><%= link_to 'Show', image_processing_request %></td>
-        <td><%= link_to 'Edit', edit_image_processing_request_path(image_processing_request) %></td>
-        <td><%= link_to 'Destroy', image_processing_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%=l image_processing_request.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_image_processing_request_path(image_processing_request), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      image_processing_request_path(image_processing_request),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Image processing request', new_image_processing_request_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_image_processing_request_path,
+            :class => 'btn btn-primary' %>

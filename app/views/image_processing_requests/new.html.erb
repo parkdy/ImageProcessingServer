@@ -1,5 +1,5 @@
-<h1>New Image Processing Request</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', image_processing_requests_path %>
+<%- model_class = ImageProcessingRequest -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
+</div>
+<%= render :partial => 'form' %>

@@ -1,29 +1,27 @@
-<p id="notice"><%= notice %></p>
+<%- model_class = ImageProcessingRequest -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Original image:</strong>
-  <%= @image_processing_request.original_image_id %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:callback_url) %>:</strong></dt>
+  <dd><%= @image_processing_request.callback_url %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:original_image_id) %>:</strong></dt>
+  <dd><%= @image_processing_request.original_image_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:processed_image_id) %>:</strong></dt>
+  <dd><%= @image_processing_request.processed_image_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:processed) %>:</strong></dt>
+  <dd><%= @image_processing_request.processed %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:command_string) %>:</strong></dt>
+  <dd><%= @image_processing_request.command_string %></dd>
+</dl>
 
-<p>
-  <strong>Processed image:</strong>
-  <%= @image_processing_request.processed_image_id %>
-</p>
-
-<p>
-  <strong>Processed:</strong>
-  <%= @image_processing_request.processed %>
-</p>
-
-<p>
-  <strong>Command string:</strong>
-  <%= @image_processing_request.command_string %>
-</p>
-
-<p>
-  <strong>Callback url:</strong>
-  <%= @image_processing_request.callback_url %>
-</p>
-
-<%= link_to 'Edit', edit_image_processing_request_path(@image_processing_request) %> |
-<%= link_to 'Back', image_processing_requests_path %>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              image_processing_requests_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_image_processing_request_path(@image_processing_request), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              image_processing_request_path(@image_processing_request),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
