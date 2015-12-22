@@ -28,6 +28,8 @@ class ImageProcessingRequestsController < ApplicationController
 
     respond_to do |format|
       if @image_processing_request.save
+        ImageProcessingRequestWorker.perform_async(@image_processing_request.id)
+
         format.html { redirect_to @image_processing_request, notice: 'Image processing request was successfully created.' }
         format.json { render :show, status: :created, location: @image_processing_request }
       else

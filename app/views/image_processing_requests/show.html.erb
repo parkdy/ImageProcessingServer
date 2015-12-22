@@ -21,7 +21,7 @@
       <td><strong><%= model_class.human_attribute_name(:processed_image_id) %>:</strong></td>
       <td>
         <%= @image_processing_request.processed_image_id %>
-        <img id='original_image_preview' src='<%= @image_processing_request.original_image.try(:image).try(:url) %>' style='max-witdh: 320px; max-height: 320px; display: block;'>
+        <img id='processed_image_preview' src='<%= @image_processing_request.processed_image.try(:image).try(:url) %>' style='max-witdh: 320px; max-height: 320px; display: block;'>
       </td>
     </tr>
 
