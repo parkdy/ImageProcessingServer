@@ -6,11 +6,11 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:callback_url) %></th>
       <th><%= model_class.human_attribute_name(:original_image_id) %></th>
       <th><%= model_class.human_attribute_name(:processed_image_id) %></th>
       <th><%= model_class.human_attribute_name(:processed) %></th>
       <th><%= model_class.human_attribute_name(:command_string) %></th>
+      <th><%= model_class.human_attribute_name(:callback_url) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -19,11 +19,21 @@
     <% @image_processing_requests.each do |image_processing_request| %>
       <tr>
         <td><%= link_to image_processing_request.id, image_processing_request_path(image_processing_request) %></td>
-        <td><%= image_processing_request.callback_url %></td>
-        <td><%= image_processing_request.original_image_id %></td>
-        <td><%= image_processing_request.processed_image_id %></td>
+        <td align='center'>
+          <img class='original_image_preview'
+               src='<%= image_processing_request.original_image.try(:image).try(:url) %>'
+               style='max-width: 80px; max-height: 80px; display: block;'>
+          <%= image_processing_request.original_image_id %>
+        </td>
+        <td align='center'>
+          <img class='processed_image_preview'
+               src='<%= image_processing_request.processed_image.try(:image).try(:url) %>'
+               style='max-width: 80px; max-height: 80px; display: block;'>
+          <%= image_processing_request.processed_image_id %>
+        </td>
         <td><%= image_processing_request.processed %></td>
         <td><%= image_processing_request.command_string %></td>
+        <td><%= image_processing_request.callback_url %></td>
         <td><%=l image_processing_request.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

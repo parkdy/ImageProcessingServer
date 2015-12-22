@@ -17,7 +17,8 @@
 
   <div class="form-group">
     <%= f.label :original_image, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
+    <div class="col-lg-4">
+      <img id='original_image_preview' style='width: 100%; height: auto;'>
       <%= f.file_field :original_image, :class => 'form-control',
                                         :name => 'image_processing_request[original_image_attributes][image]',
                                         :accept => 'image/*' %>
@@ -48,3 +49,22 @@
   </div>
 
 <% end %>
+
+<script>
+  $(document).ready(function() {
+    var $originalImageField = $('#image_processing_request_original_image');
+    var $originalImage = $('#original_image_preview');
+
+    // Set image preview when you use the file field
+    $originalImageField.change(function(event) {
+      var file = this.files[0];
+      var reader = new FileReader();
+
+      reader.onloadend = function() {
+        $originalImage.attr('src', reader.result);
+      }
+
+      reader.readAsDataURL(file);
+    })
+  });
+</script>

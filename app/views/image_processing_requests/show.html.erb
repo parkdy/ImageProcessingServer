@@ -3,18 +3,44 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:callback_url) %>:</strong></dt>
-  <dd><%= @image_processing_request.callback_url %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:original_image_id) %>:</strong></dt>
-  <dd><%= @image_processing_request.original_image_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:processed_image_id) %>:</strong></dt>
-  <dd><%= @image_processing_request.processed_image_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:processed) %>:</strong></dt>
-  <dd><%= @image_processing_request.processed %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:command_string) %>:</strong></dt>
-  <dd><%= @image_processing_request.command_string %></dd>
-</dl>
+<table class='table table-striped'>
+  <tbody>
+    <tr>
+      <td><strong><%= model_class.human_attribute_name(:id) %>:</strong></td>
+      <td><%= @image_processing_request.id %></td>
+    </tr>
+    <tr>
+      <td><strong><%= model_class.human_attribute_name(:original_image_id) %>:</strong></td>
+      <td>
+        <%= @image_processing_request.original_image_id %>
+        <img id='original_image_preview' src='<%= @image_processing_request.original_image.try(:image).try(:url) %>' style='max-witdh: 320px; max-height: 320px; display: block;'>
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong><%= model_class.human_attribute_name(:processed_image_id) %>:</strong></td>
+      <td>
+        <%= @image_processing_request.processed_image_id %>
+        <img id='original_image_preview' src='<%= @image_processing_request.original_image.try(:image).try(:url) %>' style='max-witdh: 320px; max-height: 320px; display: block;'>
+      </td>
+    </tr>
+
+    <tr>
+      <td><strong><%= model_class.human_attribute_name(:processed) %>:</strong></td>
+      <td><%= @image_processing_request.processed %></td>
+    </tr>
+
+    <tr>
+      <td><strong><%= model_class.human_attribute_name(:command_string) %>:</strong></td>
+      <td><%= @image_processing_request.command_string %></td>
+    </tr>
+
+    <tr>
+      <td><strong><%= model_class.human_attribute_name(:callback_url) %>:</strong></td>
+      <td><%= @image_processing_request.callback_url %></td>
+    </tr>
+  </tbody>
+</table>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               image_processing_requests_path, :class => 'btn btn-default'  %>
