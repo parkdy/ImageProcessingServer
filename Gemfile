@@ -54,3 +54,4 @@ gem 'mini_magick'
 gem 'sinatra', require: false
 gem 'slim'
 gem 'twitter-bootstrap-rails'
+gem 'rest-client'
