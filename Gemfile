@@ -55,3 +55,4 @@ gem 'sinatra', require: false
 gem 'slim'
 gem 'twitter-bootstrap-rails'
 gem 'rest-client'
+gem 'foreman'

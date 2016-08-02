@@ -9,24 +9,22 @@ brew install imagemagick
 ```
 
 ```sh
-redis-server
 pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start
 ```
 
 ### Setup S3
-Create a config/s3.yml file
+Create a config/s3.yml file (obtain credentials from AWS: https://aws.amazon.com/)
 ```yml
 bucket: bucket
 access_key_id: accesskey
-secret_access_key: secretaccesskey 
+secret_access_key: secretaccesskey
 ```
 
 ## Usage
 ```sh
 bundle install
 bundle exec rake db:setup
-bundle exec sidekiq # in a separate tab or in a background process
-bundle exec rails server
+bundle exec foreman start
 ```
 
 The easiest way to use this app is through the web interface:
@@ -45,12 +43,14 @@ Background job monitoring:
 
   ```javascript
   {
-    "original_image_attributes": {
-      "image": ""         // The base64 encoded image data
+    "image_processing_request": {
+      "original_image_attributes": {
+        "image": "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+      },
+      "command_string": "-negate output.png",       // Arguments passed to the ImageMagick library "convert" command
+                                                    // For example, "-negate output.png" inverts the image and saves it as a PNG file
+      "callback_url": "http://example.com/callback" // Where to submit the processed image url when the processing job is complete
     }
-    "command_string": "", // The equivalent of the ImageMagick library "convert" command
-                          // For example, "-negate output.png" inverts the image and saves it as a PNG file
-    "callback_url": ""    // Where to submit the processed image url when the processing job is complete
   }
   ```
 
@@ -64,8 +64,8 @@ Background job monitoring:
   "original_image_id": 1,
   "processed_image_id": 1,
   "processed": false,
-  "command_string":"",
-  "callback_url":"",
+  "command_string":"-negate output.png",
+  "callback_url":"http://example.com/callback",
   "created_at": "2016-02-11T02:01:20.175Z",
   "updated_at":"2016-02-11T02:01:20.175Z"
 }
@@ -77,7 +77,7 @@ Background job monitoring:
 {
   "image_processing_request": {
     "id": 1,
-    "processed_image_url": ""
+    "processed_image_url": "http://example.com/output.png"
   }
 }
 ```
